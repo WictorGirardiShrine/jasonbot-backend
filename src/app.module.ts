@@ -24,9 +24,9 @@ import { UsersModule } from './users/users.module';
     LoggerModule.forRoot({
       pinoHttp: {
         transport:
-          process.env.NODE_ENV === 'production'
-            ? undefined
-            : { target: 'pino-pretty', options: { singleLine: true } },
+          process.env.NODE_ENV === 'development'
+            ? { target: 'pino-pretty', options: { singleLine: true } }
+            : undefined,
         autoLogging: { ignore: (req) => req.url === '/health' },
       },
     }),

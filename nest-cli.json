@@ -3,6 +3,10 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "assets": [
+      { "include": "chat/coaching-assets/*.md", "outDir": "./dist" }
+    ],
+    "watchAssets": true
   }
 }

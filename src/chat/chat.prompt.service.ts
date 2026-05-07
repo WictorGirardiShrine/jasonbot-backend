@@ -30,9 +30,9 @@ export class ChatPromptService implements OnModuleInit {
   private rulesText = '';
 
   onModuleInit() {
-    const docsDir = resolve(process.cwd(), '..', 'docs');
-    this.protocolText = readFileSync(resolve(docsDir, 'COACHING_PROTOCOL.md'), 'utf8');
-    this.rulesText = readFileSync(resolve(docsDir, 'COACHING_RULES.md'), 'utf8');
+    const assetsDir = resolve(__dirname, 'coaching-assets');
+    this.protocolText = readFileSync(resolve(assetsDir, 'COACHING_PROTOCOL.md'), 'utf8');
+    this.rulesText = readFileSync(resolve(assetsDir, 'COACHING_RULES.md'), 'utf8');
     this.logger.log(
       `Loaded protocol (${this.protocolText.length} chars) + rules (${this.rulesText.length} chars)`,
     );
