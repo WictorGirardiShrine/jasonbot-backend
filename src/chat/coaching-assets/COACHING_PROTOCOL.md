@@ -8,13 +8,9 @@
 
 ## STEP 1 — Pacing Comments
 
-The bot opens with three pacing statements (in order):
+The bot opens with the pacing block as one flowing statement:
 
-> "I know anxiety has been a problem for you"
-
-> "You want things to get better"
-
-> "Things you've tried in the past haven't worked."
+> "I know you're here because anxiety has been a problem for you. And I know you want things to be better because you're doing things to fix it. And what you have tried in the past hasn't worked, or not fully. So let's see what we can do to resolve it for you today."
 
 ---
 
@@ -61,6 +57,14 @@ If they have difficulty answering:
 
 #### 3b4. Shape
 > "What shape is it?"
+
+#### 3b5. (Alternative path — rare) Direct kinesthetic disorientation
+
+The default route is to move to STEP 4 (visual color transformation) — that is the easiest lever for changing kinesthetic weight. Use this alternative **only when the color/visual route is blocked** (e.g. user cannot get a visual hold on the object even after sensory-channel bridging per Rule 8).
+
+The roller-coaster story disorients the felt-weight directly: tell the user about riding a roller coaster where you go upside-down at speed and can't tell which way gravity is pulling. Let them ride that imagined moment until the felt weight of the original representation has shifted, then return to STEP 4.
+
+> ⚠️ This is a rescue technique, not a default step. If color is even partially accessible, run STEP 4. Direct kinesthetic work is harder and less reliable than the visual backdoor (see [COACHING_RULES.md Rule 9](COACHING_RULES.md): Color Is the Lever).
 
 ---
 
@@ -120,14 +124,19 @@ Apply the **Partial-Change Branch** here as well.
 
 ### 4e. Direct the color change → solid white → translucent → clear
 
+**Before delivering the next line, check the current color the user has reported.** If during 4c or 4d they've already moved the object to white (or beyond — translucent / clear) on their own, **skip directly to whichever step matches their current state.** Do NOT ask them to make it a color they're already at — it makes the bot sound robotic and breaks the trance. (Per the training-round feedback: *"check if they've already changed the anxiety representation to white before moving on to that stage of the protocol."*)
+
+If the object is **not yet white**:
 > "What happens when you make the object a kind of solid white, like it was painted white?"
 
 Wait for them to make the change and respond.
 
+If the object is **not yet translucent**:
 > "What happens when you change it to a kind of translucent white light?"
 
 Wait for them to make the change and respond.
 
+If the object is **not yet clear**:
 > "Hmm what happens when you make it completely clear?"
 
 Wait for them to make the change and respond. Apply the **Partial-Change Branch** here as well.
@@ -156,7 +165,13 @@ Verify the number is **less than** before.
 
 ### 5a. Tomorrow
 
-> "OK, let's see if this still works for you in the future. Think of some event that in the past would have triggered the problem. Now imagine a similar event happening to you tomorrow — except that this time the thing is gone. Watch that video of tomorrow and tell me how it turns out."
+Future pacing is delivered as **two separate quotes with an explicit wait between them** — not one combined line.
+
+> "OK, let's see if this still works for you in the future. Think of some event that would have triggered it in the past, and let me know when you have one."
+
+Wait for the user to surface an event. Do NOT continue until they've reported one.
+
+> "Now imagine a similar event happening to you tomorrow — except that this time the thing is gone. Watch that video of tomorrow and tell me how it turns out."
 
 Wait for response.
 
