@@ -1,7 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { and, asc, eq } from 'drizzle-orm';
+import { UsageService } from '../billing/usage.service';
 import { DB, type Database } from '../database/database.module';
-import { messageFeedback, type MessageFeedback } from '../database/schema/messageFeedback';
+import {
+  messageFeedback,
+  type MessageFeedback,
+} from '../database/schema/messageFeedback';
 import { messages, type Message } from '../database/schema/messages';
 import { sessions } from '../database/schema/sessions';
 import { SessionsService } from '../sessions/sessions.service';
@@ -15,6 +19,7 @@ export class MessagesService {
   constructor(
     @Inject(DB) private readonly db: Database,
     private readonly sessionsService: SessionsService,
+    private readonly usage: UsageService,
   ) {}
 
   async listBySession(
@@ -53,6 +58,10 @@ export class MessagesService {
     content: string,
   ): Promise<Message> {
     await this.sessionsService.assertOwnership(sessionId, userId);
+
+    // Free-tier gate — throws 402 FREE_LIMIT_EXCEEDED for over-cap free users.
+    // Paid users pass through; for them the counter is informational only.
+    await this.usage.recordAndCheckMessage(userId);
 
     return this.db.transaction(async (tx) => {
       const [created] = await tx

@@ -5,6 +5,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { LoggerModule } from 'nestjs-pino';
 import { AnthropicModule } from './anthropic/anthropic.module';
 import { AuthModule } from './auth/auth.module';
+import { BillingModule } from './billing/billing.module';
 import { ChatModule } from './chat/chat.module';
 import { validateEnv } from './config/env.schema';
 import { DatabaseModule } from './database/database.module';
@@ -41,6 +42,7 @@ import { UsersModule } from './users/users.module';
     FeedbackModule,
     RagModule,
     ChatModule,
+    BillingModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })

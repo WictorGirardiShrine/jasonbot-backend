@@ -5,7 +5,9 @@ export const messages = pgTable('messages', {
   sessionId: uuid('session_id').notNull(),
   role: text('role').notNull(),
   content: text('content').notNull(),
-  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true })
+    .defaultNow()
+    .notNull(),
 });
 
 export type Message = typeof messages.$inferSelect;

@@ -11,7 +11,9 @@ import { SUPABASE_ADMIN } from '../../supabase/supabase.module';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
-  constructor(@Inject(SUPABASE_ADMIN) private readonly supabase: SupabaseClient) {}
+  constructor(
+    @Inject(SUPABASE_ADMIN) private readonly supabase: SupabaseClient,
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest<Request>();

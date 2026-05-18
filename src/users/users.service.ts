@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { eq } from 'drizzle-orm';
 import { DB, type Database } from '../database/database.module';
 import { profiles, type Profile } from '../database/schema/profiles';
+import { subscriptions } from '../database/schema/subscriptions';
 
 export type ProfileWithRole = Profile & {
   email: string;
@@ -16,7 +17,10 @@ export class UsersService {
     private readonly config: ConfigService,
   ) {}
 
-  async getOrCreateProfile(userId: string, email: string): Promise<ProfileWithRole> {
+  async getOrCreateProfile(
+    userId: string,
+    email: string,
+  ): Promise<ProfileWithRole> {
     const [existing] = await this.db
       .select()
       .from(profiles)
@@ -30,6 +34,12 @@ export class UsersService {
         .insert(profiles)
         .values({ id: userId, name: fallbackName })
         .returning();
+
+      // Every profile gets a subscriptions row so billing logic can rely on the invariant.
+      await this.db
+        .insert(subscriptions)
+        .values({ userId })
+        .onConflictDoNothing();
     }
 
     return {
@@ -46,7 +56,11 @@ export class UsersService {
       .where(eq(profiles.id, userId));
   }
 
-  async updateName(userId: string, email: string, name: string): Promise<ProfileWithRole> {
+  async updateName(
+    userId: string,
+    email: string,
+    name: string,
+  ): Promise<ProfileWithRole> {
     const [updated] = await this.db
       .update(profiles)
       .set({ name, updatedAt: new Date() })

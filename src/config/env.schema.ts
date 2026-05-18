@@ -1,7 +1,9 @@
 import { z } from 'zod';
 
 export const envSchema = z.object({
-  NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
+  NODE_ENV: z
+    .enum(['development', 'test', 'production'])
+    .default('development'),
   PORT: z.coerce.number().int().positive().default(3001),
   FRONTEND_URL: z.string().url(),
   SUPABASE_URL: z.string().url(),
@@ -19,6 +21,12 @@ export const envSchema = z.object({
     ),
   ANTHROPIC_API_KEY: z.string().min(1),
   VOYAGE_API_KEY: z.string().min(1),
+
+  STRIPE_SECRET_KEY: z.string().min(1),
+  STRIPE_WEBHOOK_SECRET: z.string().min(1),
+  STRIPE_PRICE_MONTHLY_ID: z.string().min(1),
+  STRIPE_PRICE_ANNUAL_ID: z.string().min(1),
+  FREE_TIER_DAILY_MESSAGE_LIMIT: z.coerce.number().int().positive().default(10),
 });
 
 export type Env = z.infer<typeof envSchema>;

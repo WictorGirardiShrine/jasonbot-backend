@@ -11,7 +11,9 @@ export const ANTHROPIC = Symbol('ANTHROPIC');
       provide: ANTHROPIC,
       inject: [ConfigService],
       useFactory: (config: ConfigService) =>
-        new Anthropic({ apiKey: config.getOrThrow<string>('ANTHROPIC_API_KEY') }),
+        new Anthropic({
+          apiKey: config.getOrThrow<string>('ANTHROPIC_API_KEY'),
+        }),
     },
   ],
   exports: [ANTHROPIC],

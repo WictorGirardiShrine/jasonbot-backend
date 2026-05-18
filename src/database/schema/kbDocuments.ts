@@ -1,4 +1,10 @@
-import { pgTable, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
+import {
+  pgTable,
+  text,
+  timestamp,
+  uniqueIndex,
+  uuid,
+} from 'drizzle-orm/pg-core';
 
 export const kbDocuments = pgTable(
   'kb_documents',
@@ -7,9 +13,13 @@ export const kbDocuments = pgTable(
     source: text('source').notNull(),
     title: text('title'),
     contentHash: text('content_hash').notNull(),
-    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .defaultNow()
+      .notNull(),
   },
-  (t) => [uniqueIndex('kb_documents_source_hash_uniq').on(t.source, t.contentHash)],
+  (t) => [
+    uniqueIndex('kb_documents_source_hash_uniq').on(t.source, t.contentHash),
+  ],
 );
 
 export type KbDocument = typeof kbDocuments.$inferSelect;

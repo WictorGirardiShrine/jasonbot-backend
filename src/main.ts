@@ -7,6 +7,9 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     bufferLogs: true,
+    // Capture the raw request body so Stripe webhook signature verification works.
+    // Other routes still receive the parsed JSON body via Nest's default parser.
+    rawBody: true,
   });
 
   app.useLogger(app.get(Logger));

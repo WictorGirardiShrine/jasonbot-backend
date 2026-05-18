@@ -76,7 +76,9 @@ async function main(): Promise<void> {
           continue;
         }
       } catch (err) {
-        logger.error(`Failed to parse ${source}: ${err instanceof Error ? err.message : err}`);
+        logger.error(
+          `Failed to parse ${source}: ${err instanceof Error ? err.message : err}`,
+        );
         continue;
       }
 
@@ -91,7 +93,9 @@ async function main(): Promise<void> {
         .values({ source, title, contentHash: hash })
         .returning();
 
-      const embeddings = await embedder.embedDocuments(chunks.map((c) => c.content));
+      const embeddings = await embedder.embedDocuments(
+        chunks.map((c) => c.content),
+      );
       const rows = chunks.map((c, i) => ({
         documentId: doc.id,
         content: c.content,
@@ -149,7 +153,10 @@ async function chunkPdf(buf: Buffer, source: string): Promise<ChunkInput[]> {
 }
 
 function chunkText(text: string, source: string): ChunkInput[] {
-  const isTranscript = /and Jason Andrews|Jason Andrews and|Bartz|Rickert|Carrie|Greg.*Orr|Dustin/i.test(source);
+  const isTranscript =
+    /and Jason Andrews|Jason Andrews and|Bartz|Rickert|Carrie|Greg.*Orr|Dustin/i.test(
+      source,
+    );
   const clientName = inferClientName(source);
 
   const baseMeta: Record<string, unknown> = {
@@ -200,7 +207,8 @@ function splitText(text: string): string[] {
 function inferTitle(source: string, firstChunk: string): string {
   const stem = source.replace(/\.[^.]+$/, '');
   const firstLine = firstChunk.split('\n').find((l) => l.trim().length > 0);
-  if (firstLine && firstLine.length < 120 && firstLine !== stem) return firstLine.trim();
+  if (firstLine && firstLine.length < 120 && firstLine !== stem)
+    return firstLine.trim();
   return stem;
 }
 

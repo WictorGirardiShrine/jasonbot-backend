@@ -1,4 +1,9 @@
-import { BadRequestException, Inject, Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  Logger,
+} from '@nestjs/common';
 import type { Response, Request } from 'express';
 import type Anthropic from '@anthropic-ai/sdk';
 import { eq } from 'drizzle-orm';
@@ -61,7 +66,7 @@ export class ChatService {
       model: MODEL,
       max_tokens: MAX_TOKENS,
       // SDK accepts an array of content blocks (with cache_control) for system.
-      system: system as unknown as Anthropic.MessageCreateParams['system'],
+      system: system,
       messages: apiMessages,
     });
 

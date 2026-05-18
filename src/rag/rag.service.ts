@@ -53,7 +53,7 @@ export class RagService {
         title: r.title,
         content: r.content,
         score: Number(r.score),
-        metadata: (r.metadata ?? {}) as Record<string, unknown>,
+        metadata: r.metadata ?? {},
       }));
   }
 }

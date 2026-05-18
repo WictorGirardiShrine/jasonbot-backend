@@ -11,7 +11,9 @@ export const VOYAGE = Symbol('VOYAGE');
       provide: VOYAGE,
       inject: [ConfigService],
       useFactory: (config: ConfigService) =>
-        new VoyageAIClient({ apiKey: config.getOrThrow<string>('VOYAGE_API_KEY') }),
+        new VoyageAIClient({
+          apiKey: config.getOrThrow<string>('VOYAGE_API_KEY'),
+        }),
     },
   ],
   exports: [VOYAGE],

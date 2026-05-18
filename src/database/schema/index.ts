@@ -5,3 +5,6 @@ export * from './messageFeedback';
 export * from './kbDocuments';
 export * from './kbChunks';
 export * from './vector';
+export * from './subscriptions';
+export * from './dailyMessageUsage';
+export * from './stripeWebhookEvents';

@@ -38,7 +38,9 @@ export class EmbeddingService {
       data.sort((a, b) => (a.index ?? 0) - (b.index ?? 0));
       for (const item of data) {
         if (!item.embedding) {
-          throw new Error(`Voyage returned empty embedding at batch index ${item.index}`);
+          throw new Error(
+            `Voyage returned empty embedding at batch index ${item.index}`,
+          );
         }
         results.push(item.embedding);
       }

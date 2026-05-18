@@ -32,7 +32,9 @@ export class SessionsService {
       .orderBy(desc(sessions.updatedAt));
   }
 
-  async create(userId: string): Promise<{ session: Session; messages: Message[] }> {
+  async create(
+    userId: string,
+  ): Promise<{ session: Session; messages: Message[] }> {
     return this.db.transaction(async (tx) => {
       const [{ count }] = await tx
         .select({ count: sql<number>`count(*)::int` })
@@ -57,7 +59,11 @@ export class SessionsService {
 
       const seedMessages = await tx
         .insert(messages)
-        .values({ sessionId: session.id, role: 'assistant', content: seedContent })
+        .values({
+          sessionId: session.id,
+          role: 'assistant',
+          content: seedContent,
+        })
         .returning();
 
       return { session, messages: seedMessages };

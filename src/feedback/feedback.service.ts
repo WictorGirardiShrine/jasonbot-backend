@@ -1,7 +1,10 @@
 import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 import { and, eq } from 'drizzle-orm';
 import { DB, type Database } from '../database/database.module';
-import { messageFeedback, type MessageFeedback } from '../database/schema/messageFeedback';
+import {
+  messageFeedback,
+  type MessageFeedback,
+} from '../database/schema/messageFeedback';
 import { messages } from '../database/schema/messages';
 import { sessions } from '../database/schema/sessions';
 import type { FeedbackInput } from './feedback.schemas';

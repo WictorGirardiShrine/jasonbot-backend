@@ -15,7 +15,10 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import type { AuthUser } from '../auth/types';
 import { ZodValidationPipe } from '../common/pipes/zod-validation.pipe';
-import { renameSessionSchema, type RenameSessionInput } from './sessions.schemas';
+import {
+  renameSessionSchema,
+  type RenameSessionInput,
+} from './sessions.schemas';
 import { SessionsService } from './sessions.service';
 
 @Controller('sessions')

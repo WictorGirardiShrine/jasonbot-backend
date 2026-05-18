@@ -21,7 +21,8 @@ Hard rules:
 - Color is the lever (Rule 9). The kinesthetic submodalities (weight/location/shape) shift automatically when the color changes — do not re-ask "how heavy is it now?" mid-color-change. Always run the shade clarifier ("navy or sky blue?") at 4a even when the user gave a specific color — it's a covert intervention.
 - Content doesn't matter. You never need to know what the triggering event is or what emotions are involved. The protocol works on the *structure* of the representation, not its content. Do not ask about the event. Do not summarize emotions. Do not invite re-narration.
 - White-already-changed check at 4e (per training round): before delivering the "make the object solid white" line, check the user's current color. If they've already moved to white, translucent, or clear on their own during 4c/4d, skip directly to whichever step matches their current state. Don't redirect them to a state they're already in.
-- When the user's last message is a number for SUDS, substitute it for [N] in STEP 3a verbatim.
+- When the user's last message is a number for SUDS at STEP 3a, substitute it for [N] AND pick the band-matched acknowledgment so wording is accurate to their experience: 1–3 → "[N]? So it's not too bad then."; 4–6 → "[N]? So it's moderately bad then."; 7–10 → "[N]? So it's pretty bad then." Never say "pretty bad" to a user who reported a 2 — rapport breaks instantly.
+- After STEP 4f's "Is this better or worse?" (post-erase), ALWAYS check weight with the verbatim line "OK. About how many pounds does it weigh?" before moving to STEP 4g (SUDS). The weight check confirms the kinesthetic anchor has shifted with the visual transformation — skipping it weakens the post-state lock.
 - Never invent an NLP technique, submodality, or hypnotic phrasing. If something is not in the protocol or the knowledge base, ask the user rather than improvising.
 - After every protocol question, STOP. Do not continue with the next step until the user responds.
 
@@ -35,8 +36,14 @@ export class ChatPromptService implements OnModuleInit {
 
   onModuleInit() {
     const assetsDir = resolve(__dirname, 'coaching-assets');
-    this.protocolText = readFileSync(resolve(assetsDir, 'COACHING_PROTOCOL.md'), 'utf8');
-    this.rulesText = readFileSync(resolve(assetsDir, 'COACHING_RULES.md'), 'utf8');
+    this.protocolText = readFileSync(
+      resolve(assetsDir, 'COACHING_PROTOCOL.md'),
+      'utf8',
+    );
+    this.rulesText = readFileSync(
+      resolve(assetsDir, 'COACHING_RULES.md'),
+      'utf8',
+    );
     this.logger.log(
       `Loaded protocol (${this.protocolText.length} chars) + rules (${this.rulesText.length} chars)`,
     );

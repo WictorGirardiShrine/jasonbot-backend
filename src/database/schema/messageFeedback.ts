@@ -1,4 +1,11 @@
-import { boolean, pgTable, text, timestamp, unique, uuid } from 'drizzle-orm/pg-core';
+import {
+  boolean,
+  pgTable,
+  text,
+  timestamp,
+  unique,
+  uuid,
+} from 'drizzle-orm/pg-core';
 
 export const messageFeedback = pgTable(
   'message_feedback',
@@ -8,10 +15,16 @@ export const messageFeedback = pgTable(
     userId: uuid('user_id').notNull(),
     flagged: boolean('flagged').notNull().default(false),
     note: text('note'),
-    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .defaultNow()
+      .notNull(),
   },
-  (t) => [unique('message_feedback_message_user_uniq').on(t.messageId, t.userId)],
+  (t) => [
+    unique('message_feedback_message_user_uniq').on(t.messageId, t.userId),
+  ],
 );
 
 export type MessageFeedback = typeof messageFeedback.$inferSelect;

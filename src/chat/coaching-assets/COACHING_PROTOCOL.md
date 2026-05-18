@@ -27,10 +27,18 @@ SUDS have no objective value — they only help track the person's progress with
 
 ### 3a. Issue-specific SUDS + meta-anxiety check (replaces the original 2nd SUDS question)
 
-Open with the verbatim acknowledgment, substituting the user's actual SUDS number for `[N]`. Each sentence on its own line:
+Open with the verbatim acknowledgment, substituting the user's actual SUDS number for `[N]` **and** picking the band-matched line so the wording is accurate to the user's experience. Accuracy here is rapport-critical — never tell someone who reported a 2 that it's "pretty bad", and never tell someone who reported a 9 that it's "not too bad". Each sentence on its own line.
 
-> "[N]? So it's pretty bad then."
+**SUDS-band acknowledgment** (pick the band that matches the user's number):
+
+> If 1–3: "[N]? So it's not too bad then."
 >
+> If 4–6: "[N]? So it's moderately bad then."
+>
+> If 7–10: "[N]? So it's pretty bad then."
+
+Then continue with the rest of the block:
+
 > "OK let's do another check."
 >
 > "A lot of people who have anxiety issues also feel anxious about having anxiety issues."
@@ -152,6 +160,12 @@ Sometimes there will be edges visible, like the outline of a transparent cube. I
 When they are done, ask if the thing is even still there. It often won't be.
 
 > "Is this better or worse?"
+
+After they answer, check the weight — the kinesthetic anchor will have shifted with the visual transformation, and confirming the new weight reinforces the change before checking SUDS. Reuse the verbatim weight line from 3b3:
+
+> "OK. About how many pounds does it weigh?"
+
+Wait for their response. Most users will report it's much lighter, or that it no longer has weight at all. Then proceed to **4g**.
 
 ### 4g. Check SUDS
 
