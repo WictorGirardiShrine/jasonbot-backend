@@ -97,27 +97,22 @@ export class BillingService {
     const priceId =
       plan === 'monthly' ? this.monthlyPriceId : this.annualPriceId;
 
-    const session = await this.stripe.client.checkout.sessions.create(
-      {
-        mode: 'subscription',
-        customer: customerId,
-        customer_update: { address: 'auto', name: 'auto' },
-        line_items: [{ price: priceId, quantity: 1 }],
-        success_url: this.successUrl,
-        cancel_url: this.cancelUrl,
-        automatic_tax: { enabled: true },
-        billing_address_collection: 'auto',
-        allow_promotion_codes: true,
-        client_reference_id: userId,
+    const session = await this.stripe.client.checkout.sessions.create({
+      mode: 'subscription',
+      customer: customerId,
+      customer_update: { address: 'auto', name: 'auto' },
+      line_items: [{ price: priceId, quantity: 1 }],
+      success_url: this.successUrl,
+      cancel_url: this.cancelUrl,
+      automatic_tax: { enabled: true },
+      billing_address_collection: 'auto',
+      allow_promotion_codes: true,
+      client_reference_id: userId,
+      metadata: { jasonbotUserId: userId, plan },
+      subscription_data: {
         metadata: { jasonbotUserId: userId, plan },
-        subscription_data: {
-          metadata: { jasonbotUserId: userId, plan },
-        },
       },
-      {
-        idempotencyKey: `checkout-${userId}-${plan}-${new Date().toISOString().slice(0, 10)}`,
-      },
-    );
+    });
 
     if (!session.url) {
       throw new Error('Stripe did not return a checkout URL');
