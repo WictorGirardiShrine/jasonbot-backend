@@ -15,6 +15,7 @@ import { MessagesService } from '../messages/messages.service';
 import { RagService } from '../rag/rag.service';
 import { SessionsService } from '../sessions/sessions.service';
 import { ChatPromptService } from './chat.prompt.service';
+import { nextProtocolKey, parseIssueFromMessage } from './chat.protocol-router';
 
 const MODEL = 'claude-sonnet-4-6';
 const MAX_TOKENS = 16000;
@@ -38,7 +39,7 @@ export class ChatService {
     req: Request,
     res: Response,
   ): Promise<void> {
-    await this.sessionsService.assertOwnership(sessionId, userId);
+    let session = await this.sessionsService.assertOwnership(sessionId, userId);
 
     const history = await this.messagesService.listBySession(sessionId, userId);
     if (history.length === 0 || history[history.length - 1].role !== 'user') {
@@ -53,6 +54,31 @@ export class ChatService {
     }));
 
     const lastUser = history[history.length - 1].content;
+
+    // Issue-selection routing: if the user hasn't picked an issue yet and
+    // their last message matches a known issue, resolve the active protocol
+    // from the rotation and persist before building the prompt. This way
+    // the very next turn injects the protocol asset, not the intro asset.
+    if (!session.activeProtocolKey) {
+      const issue = parseIssueFromMessage(lastUser);
+      if (issue) {
+        const protocolKey = await nextProtocolKey(this.db, userId, issue);
+        const [updated] = await this.db
+          .update(sessions)
+          .set({
+            selectedIssue: issue,
+            activeProtocolKey: protocolKey,
+            updatedAt: new Date(),
+          })
+          .where(eq(sessions.id, sessionId))
+          .returning();
+        session = updated;
+        this.logger.log(
+          `Router: session ${sessionId} → issue=${issue}, protocol=${protocolKey}`,
+        );
+      }
+    }
+
     const retrieved = await this.ragService.retrieve(lastUser, 4);
     if (retrieved.length > 0) {
       this.logger.log(
@@ -60,7 +86,7 @@ export class ChatService {
       );
     }
 
-    const system = this.promptService.buildSystem(retrieved);
+    const system = this.promptService.buildSystem(retrieved, session);
 
     const stream = this.anthropic.messages.stream({
       model: MODEL,

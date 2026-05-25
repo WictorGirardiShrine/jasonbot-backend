@@ -7,18 +7,17 @@ import {
 import { and, desc, eq, sql } from 'drizzle-orm';
 import { DB, type Database } from '../database/database.module';
 import { messages, type Message } from '../database/schema/messages';
-import { profiles } from '../database/schema/profiles';
 import { sessions, type Session } from '../database/schema/sessions';
 
-// TODO(jason): confirm or revise this opening — see docs/CHAT_NOTES.md
-// Not in COACHING_PROTOCOL.md; carried over from the Lovable prototype as
-// custom framing copy. The protocol itself opens at STEP 1 with three
-// pacing statements; this greeting is shown before that flow begins.
-const SEED_GREETING_TEMPLATE = `Hello, {name}, I'm the Jason Andrews Anxiety Elimination Bot.
-I can guide you through some processes that Jason uses with clients.
-Now, it won't be as perfect as Jason can do live, but I can usually help people.
-You can send a message to Jason any time.
-Are you ready to get started?`;
+// Verbatim opening from INTRO_AND_ISSUE_SELECTION.md STEP 1.
+// The full intro flow (disclaimer, pacing, issue selection) is delivered by
+// the LLM under the INTRO protocol injected into the system prompt — the
+// seed only needs to land the welcome and the understanding check.
+const SEED_GREETING = `Hello and welcome to JasonBot. I can help with several common challenges that Jason helps clients with. I can't do as well as Jason can, but I can do a pretty good job of helping you in similar ways.
+
+JasonBot is NOT designed to listen to you vent, or to help you cope, or to manage a crisis. JasonBot is designed to resolve a problem entirely through shifting the way you experience things on the inside. The aim is to eliminate the problem entirely, so this will be different from what you may have experienced before.
+
+Do you understand what I mean by that?`;
 
 @Injectable()
 export class SessionsService {
@@ -46,23 +45,12 @@ export class SessionsService {
         .values({ userId, title: `Session ${count + 1}` })
         .returning();
 
-      const [profile] = await tx
-        .select({ name: profiles.name })
-        .from(profiles)
-        .where(eq(profiles.id, userId))
-        .limit(1);
-
-      const seedContent = SEED_GREETING_TEMPLATE.replace(
-        '{name}',
-        profile?.name ?? 'friend',
-      );
-
       const seedMessages = await tx
         .insert(messages)
         .values({
           sessionId: session.id,
           role: 'assistant',
-          content: seedContent,
+          content: SEED_GREETING,
         })
         .returning();
 
