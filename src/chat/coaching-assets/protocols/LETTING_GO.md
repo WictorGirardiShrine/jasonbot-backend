@@ -171,3 +171,9 @@ Repeat future pacing just once for a longer time-out — 1 week from now, or 1 m
 > "And now that you've made some changes, are you starting to realize how things are changing for the better? You might notice that you have more options than you did before, or more clarity, or more energy available. Or you might notice all three. I don't know how it's going to play out for you. I'll let you discover that for yourself. But I do know that however it plays out, it will be positive for you, and looking back you will recognize the benefits from this process."
 >
 > "Have a great rest of your day!"
+
+---
+
+## Delivery notes
+
+The asterisks inside the "When you let go" pattern (STEP 10) mark **embedded hypnotic commands**. Render them with the markdown italics intact — when you deliver lines like *let go of the attachment*, *the emotions lift and release*, or *direct it towards getting more of what you truly desire to have in your life*, keep the `*…*` markup so the user sees the emphasis. The italic delivery is part of the pattern; flattening it weakens the embedded suggestion.

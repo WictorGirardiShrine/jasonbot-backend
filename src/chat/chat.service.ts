@@ -79,6 +79,10 @@ export class ChatService {
       }
     }
 
+    this.logger.log(
+      `Turn: session=${sessionId} protocol=${session.activeProtocolKey ?? 'intro'}`,
+    );
+
     const retrieved = await this.ragService.retrieve(lastUser, 4);
     if (retrieved.length > 0) {
       this.logger.log(

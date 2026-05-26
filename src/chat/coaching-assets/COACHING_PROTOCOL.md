@@ -207,7 +207,87 @@ Each time, ask how things turn out now that the thing is gone.
 
 ## Reference
 
-- Behavioral rules: [COACHING_RULES.md](COACHING_RULES.md)
+- Generic behavioral rules (apply to every protocol): [COACHING_RULES.md](COACHING_RULES.md)
 - Project spec: [PROJECT_SPEC.md](PROJECT_SPEC.md)
 - Source materials: *Sourcebook of Magic* + Jason's NLP protocols (OneDrive — see PROJECT_SPEC §2)
 - Brand reference: https://jasonandrews.coach/
+
+---
+
+## Delivery Rules for This Protocol
+
+The rules below are **specific to the anxiety submodality shift protocol above** — they apply only when this protocol is the active one for the session. They were derived from polish-pass testing of this protocol; other protocols (tentacles, neutralizing, letting go) do not use these mechanics and have their own delivery notes alongside their own files.
+
+### A. Acknowledge SUDS + Meta-Anxiety Replaces 2nd SUDS
+
+**Rule.** STEP 3a opens with the verbatim acknowledgment line that **substitutes the user's number** for `[N]`, one sentence per line. The follow-up issue-specific SUDS question (the old "how big of a problem is it on a 1-10 scale?") is **removed entirely**. After the user answers yes/no to the meta-anxiety question, the bot drops a brief warm acknowledgment and proceeds straight to STEP 3b1 (Location).
+
+**Why.** The original second SUDS question felt redundant right after the global SUDS. Jason rewrote the block as the meta-anxiety check ("A lot of people who have anxiety issues also feel anxious about having anxiety issues. Is that true for you as well?") and said this should **replace** the second question — not stack with it.
+
+**How to apply.** See §3a above. Do not re-introduce a second numerical SUDS at this stage. The next SUDS check is at **4g**, after the visual transformation.
+
+**SUDS band acknowledgment** (when the user's last message is a number for SUDS at STEP 3a, substitute it for [N] AND pick the band-matched acknowledgment so wording is accurate to their experience):
+- 1–3 → "[N]? So it's not too bad then."
+- 4–6 → "[N]? So it's moderately bad then."
+- 7–10 → "[N]? So it's pretty bad then."
+
+Never say "pretty bad" to a user who reported a 2 — rapport breaks instantly.
+
+### B. Whole-Object Color Clarifier
+
+**Rule.** Both **4c** ("better color") and **4d** ("even better color") must explicitly ask about *the WHOLE object — inside and out*. Reword 4c vs 4d per the Anti-Robot rule, but always include the whole-object clarifier.
+
+**Why.** A real user had to ask back, *"For the inside or outside?"* Jason: *"'The whole object, inside and out' would have been a better response."*
+
+**How to apply.** The question must contain the clarifier. The user shouldn't have to ask.
+
+### C. Partial-Change Branch (CRITICAL)
+
+**Rule.** This is the biggest experiential improvement from the polish pass. Applies to **STEP 4c, 4d, and 4e**.
+
+After asking what happens when the user makes the change, **read the answer carefully**:
+
+- **WHOLE thing changed →** ask better/worse as written in the protocol.
+- **Only PART changed →** **do NOT** ask better/worse. Instead:
+  1. Acknowledge the part that DID shift, **by name**.
+  2. Normalize it (this is common — not failure).
+  3. Detour: *"Let that same color flow into the outside too. Tell me when it's all one color."*
+  4. THEN ask better/worse.
+- **Safety valve:** if still partial after a couple of tries, gently move on with what they have.
+
+**Why.** Screenshots showed users reporting *"I can make the inside that color but the outside is still dark"* and the bot incorrectly jumping to "better or worse?" as if the change were complete. Jason: *"They will think they are 'doing it wrong.' We need to explicitly account for a partial change. Detour to changing the color for 'the rest of it.'"*
+
+**How to apply.** Logic order is intentional: **acknowledge → normalize → detour → re-check**. This stops the user from feeling like they failed. Document the rule alongside steps 4c, 4d, and 4e in any admin Script View.
+
+### D. White-Already-Changed Check at 4e
+
+Before delivering the "make the object solid white" line at 4e, check the user's current color. If they've already moved to white, translucent, or clear on their own during 4c/4d, skip directly to whichever step matches their current state. Don't redirect them to a state they're already in.
+
+### E. Weight Check After STEP 4f
+
+After STEP 4f's "Is this better or worse?" (post-erase), **ALWAYS** check weight with the verbatim line *"OK. About how many pounds does it weigh?"* before moving to STEP 4g (SUDS). The weight check confirms the kinesthetic anchor has shifted with the visual transformation — skipping it weakens the post-state lock.
+
+### F. Color Is the Lever (Covert Mechanism Note)
+
+**Rule.** The core anxiety representation is **kinesthetic** — weight, location, movement. Color is the *backdoor* into kinesthetic weight: **change the color and the felt weight changes automatically.** That's why STEP 4 works. You're not making the object prettier, you're systematically draining the kinesthetic charge by lightening shade until weight reaches zero (solid white → translucent white light → clear → no borders).
+
+**Shade clarifier is a covert intervention.** Asking *"navy blue or sky blue?"* (or *"dark red or bright red?"* etc.) is **not just clarification** — answering it forces the user to make a small change in their representation before they can respond. They're already manipulating the object before you've asked them to.
+
+**Always run the shade clarifier at 4a, even when the user volunteered a specific color.** Never skip it on the assumption it's redundant. The clarifier is the warm-up that primes the bigger color changes in 4c/4d/4e.
+
+**Silent diagnostic table — never speak this aloud.** Used by the bot internally to read where the user is emotionally. **Never narrated to the user**, never asked about directly, never used to probe content. The bot reads the colors silently and runs the protocol regardless.
+
+| Color | Reading |
+| --- | --- |
+| Black | Pain / something to avoid |
+| Red | Anger |
+| Yellow | Helplessness |
+| Dark blue / navy | Despair |
+| Sky blue | Lighter, more hopeful |
+| Combinations | Combined emotional states |
+
+Shade (dark → light) maps directly to felt weight: dark = heavy, light = lighter, white/translucent/clear = weightless.
+
+**Why.** Without this rule encoded, the model can "optimize" by skipping the shade clarifier or by treating color manipulation as cosmetic. Both break the protocol. This rule also encodes Jason's reframe of what therapy is *for*: the protocol works on the *structure* of the representation, not its content. **No content = no re-traumatization risk, no resistance.**
+
+**How to apply.** Run STEP 4 knowing color = kinesthetic weight. Read the colors silently for your own diagnostic. Don't narrate it. Don't ask the user about the kinesthetic weight again after STEP 4 begins — it shifts automatically with the color and asking again breaks the trance.
