@@ -22,11 +22,18 @@ export const envSchema = z.object({
   ANTHROPIC_API_KEY: z.string().min(1),
   VOYAGE_API_KEY: z.string().min(1),
 
-  STRIPE_SECRET_KEY: z.string().min(1),
-  STRIPE_WEBHOOK_SECRET: z.string().min(1),
-  STRIPE_PRICE_MONTHLY_ID: z.string().min(1),
-  STRIPE_PRICE_ANNUAL_ID: z.string().min(1),
+  // Stripe vars are only required when BILLING_STRIPE_ENABLED=true.
+  // While dormant we keep them optional so the app boots without them.
+  STRIPE_SECRET_KEY: z.string().default(''),
+  STRIPE_WEBHOOK_SECRET: z.string().default(''),
+  STRIPE_PRICE_MONTHLY_ID: z.string().default(''),
+  STRIPE_PRICE_ANNUAL_ID: z.string().default(''),
   FREE_TIER_DAILY_MESSAGE_LIMIT: z.coerce.number().int().positive().default(10),
+
+  CONVERTKIT_API_SECRET: z.string().min(1),
+  CONVERTKIT_TAG_ID: z.string().min(1),
+  BILLING_STRIPE_ENABLED: z.coerce.boolean().default(false),
+  BETA_ACCESS_DURATION_DAYS: z.coerce.number().int().positive().default(30),
 });
 
 export type Env = z.infer<typeof envSchema>;

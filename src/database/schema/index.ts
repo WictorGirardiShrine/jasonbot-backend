@@ -8,3 +8,4 @@ export * from './vector';
 export * from './subscriptions';
 export * from './dailyMessageUsage';
 export * from './stripeWebhookEvents';
+export * from './newsletterSubscribers';

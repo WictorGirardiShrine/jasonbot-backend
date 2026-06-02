@@ -36,6 +36,20 @@
       "when": 1779745164927,
       "tag": "0004_brief_azazel",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1779997908003,
+      "tag": "0005_nostalgic_doctor_faustus",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1780079157016,
+      "tag": "0006_simple_nightshade",
+      "breakpoints": true
     }
   ]
 }

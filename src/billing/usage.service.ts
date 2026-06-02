@@ -17,6 +17,7 @@ export type UsageSnapshot = {
   dailyLimit: number;
   usageToday: number;
   remainingToday: number;
+  betaAccessExpiresAt: string | null;
 };
 
 @Injectable()
@@ -30,16 +31,15 @@ export class UsageService {
     return this.config.getOrThrow<number>('FREE_TIER_DAILY_MESSAGE_LIMIT');
   }
 
-  private isPaidStatus(
-    sub: Pick<Subscription, 'plan' | 'status'> | null,
+  private hasUnlimitedAccess(
+    sub: Pick<Subscription, 'plan' | 'status' | 'betaAccessExpiresAt'> | null,
   ): boolean {
+    // Free + newsletter model: any authenticated user with a subscription row
+    // gets unlimited access. The daily counter is still recorded for analytics
+    // but never blocks. The `plan`/`status` branch is retained so dormant Stripe
+    // logic stays meaningful if BILLING_STRIPE_ENABLED is ever flipped back on.
     if (!sub) return false;
-    if (sub.plan === 'free') return false;
-    return (
-      sub.status === 'active' ||
-      sub.status === 'trialing' ||
-      sub.status === 'past_due'
-    );
+    return true;
   }
 
   async getSubscription(userId: string): Promise<Subscription | null> {
@@ -54,7 +54,7 @@ export class UsageService {
   async snapshot(userId: string): Promise<UsageSnapshot> {
     const sub = await this.getSubscription(userId);
     const usageToday = await this.countToday(userId);
-    const isPaid = this.isPaidStatus(sub);
+    const isPaid = this.hasUnlimitedAccess(sub);
     const dailyLimit = this.dailyLimit;
     return {
       plan: sub?.plan ?? 'free',
@@ -65,6 +65,7 @@ export class UsageService {
       remainingToday: isPaid
         ? Number.POSITIVE_INFINITY
         : Math.max(0, dailyLimit - usageToday),
+      betaAccessExpiresAt: sub?.betaAccessExpiresAt?.toISOString() ?? null,
     };
   }
 
@@ -77,7 +78,7 @@ export class UsageService {
     userId: string,
   ): Promise<{ usageToday: number; dailyLimit: number; isPaid: boolean }> {
     const sub = await this.getSubscription(userId);
-    const isPaid = this.isPaidStatus(sub);
+    const isPaid = this.hasUnlimitedAccess(sub);
     const limit = this.dailyLimit;
 
     // Atomic UPSERT — returns the new count after increment.

@@ -31,6 +31,9 @@ export const subscriptions = pgTable('subscriptions', {
   status: subscriptionStatus('status').notNull().default('none'),
   currentPeriodEnd: timestamp('current_period_end', { withTimezone: true }),
   cancelAtPeriodEnd: boolean('cancel_at_period_end').notNull().default(false),
+  betaAccessExpiresAt: timestamp('beta_access_expires_at', {
+    withTimezone: true,
+  }),
   createdAt: timestamp('created_at', { withTimezone: true })
     .defaultNow()
     .notNull(),

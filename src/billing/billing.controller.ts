@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  GoneException,
   Headers,
   HttpCode,
   HttpStatus,
@@ -11,6 +12,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import type { Request } from 'express';
 import type Stripe from 'stripe';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
@@ -31,7 +33,14 @@ export class BillingController {
   constructor(
     private readonly billing: BillingService,
     private readonly stripe: StripeService,
+    private readonly config: ConfigService,
   ) {}
+
+  private assertStripeEnabled(): void {
+    if (this.config.get<boolean>('BILLING_STRIPE_ENABLED') !== true) {
+      throw new GoneException('Stripe billing is disabled');
+    }
+  }
 
   @Get('subscription')
   @UseGuards(JwtAuthGuard)
@@ -46,12 +55,14 @@ export class BillingController {
     @Body(new ZodValidationPipe(checkoutSessionSchema))
     body: CheckoutSessionInput,
   ) {
+    this.assertStripeEnabled();
     return this.billing.createCheckoutSession(user.id, user.email, body.plan);
   }
 
   @Post('portal-session')
   @UseGuards(JwtAuthGuard)
   async portal(@CurrentUser() user: AuthUser) {
+    this.assertStripeEnabled();
     return this.billing.createPortalSession(user.id, user.email);
   }
 
@@ -61,6 +72,7 @@ export class BillingController {
     @Req() req: Request,
     @Headers('stripe-signature') signature: string | undefined,
   ): Promise<{ received: true }> {
+    this.assertStripeEnabled();
     if (!signature)
       throw new BadRequestException('Missing stripe-signature header');
     const raw = (req as Request & { rawBody?: Buffer }).rawBody;
